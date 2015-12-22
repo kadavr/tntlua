@@ -27,11 +27,11 @@ end
 function addrbook_load(user_id)
 	user_id = box.unpack('i', user_id)
 	if(uid == nil) then
-		return false
+		return 0
 	end
 	local tuple = box.select(0, 0, user_id) -- space 0 index 0
 	if( tuple == nil) then
-		return false
+		return 0
 	end
 	return tuple
 end
@@ -39,12 +39,12 @@ end
 function addrbook_save(user_id, book)
 	user_id = box.unpack('i', user_id)
 	if(user_id == nil or book == nil) then
-		return false
+		return 0
 	end
 	local tuple = box.update(0, user_id, "=p", 1, book)
 
 	if( tuple == nil) then
-		return false
+		return 0
 	end
 	return tuple
 end
@@ -52,12 +52,12 @@ end
 function addrbook_delete(user_id)
 	user_id = box.unpack('i', user_id)
 	if(user_id == nil) then
-		return false
+		return 0
 	end
 	local tuple = box.delete(0, user_id)
 
 	if( tuple == nil) then
-		return false
+		return 0
 	end
 	return tuple
 end
