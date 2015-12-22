@@ -23,3 +23,41 @@ function addrbook_add_recipient(user_id, rcp_email, rcp_name, timestamp)
 	box.update(1, { user_id, rcp_email }, "+p", 4, 1)
 	return 0 -- contact weight updated only
 end
+
+function addrbook_load(user_id)
+	user_id = box.unpack('i', user_id)
+	if(uid == nil) then
+		return false
+	end
+	local tuple = box.select(0, 0, user_id) -- space 0 index 0
+	if( tuple == nil) then
+		return false
+	end
+	return tuple
+end
+
+function addrbook_save(user_id, book)
+	user_id = box.unpack('i', user_id)
+	if(user_id == nil or book == nil) then
+		return false
+	end
+	local tuple = box.update(0, user_id, "=p", 1, book)
+
+	if( tuple == nil) then
+		return false
+	end
+	return tuple
+end
+
+function addrbook_delete(user_id)
+	user_id = box.unpack('i', user_id)
+	if(user_id == nil) then
+		return false
+	end
+	local tuple = box.delete(0, user_id)
+
+	if( tuple == nil) then
+		return false
+	end
+	return tuple
+end
